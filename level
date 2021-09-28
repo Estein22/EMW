@@ -1,0 +1,31 @@
+from adafruit_circuitplayground import cp
+import time
+import math
+
+cp.pixels.brightness = 1
+grav = 9.8
+angle1 = 0
+angle2 = 0
+
+while True:
+    cp.pixels[angle1] = (0, 0, 0)
+    cp.pixels[angle2] = (0, 0, 0)
+
+    x, y, z = cp.acceleration
+    a1 = math.cos(y/9.8)
+    angle1 = round((a1)*10)-1
+    g = int(abs(y / grav * 127))
+    b = int(abs(z / grav * 127))
+    cp.pixels[angle1] = (0, g, b)
+
+    a2 = math.cos(x/9.8)
+    angle2 = round((a2)*10)-6
+    r = int(abs(x / grav * 127))
+    b = int(abs(z / grav * 127))
+    cp.pixels[angle2] = (r, 0, b)
+    if cp.button_a:
+        a = ((math.acos(y/9.8))/math.pi)*180
+        print(a)
+        while cp.button_a:
+            time.sleep(2)
+    time.sleep(0.00001)
