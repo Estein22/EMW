@@ -1,0 +1,11 @@
+import math
+import time
+
+cp.pixels.brightness = .2
+grav = 9.8
+
+while True:
+    x, y, z = cp.acceleration
+    mag1 = math.sqrt((x/grav) ^ 2 + (y/grav) ^ 2 + (z/grav) ^ 2) 
+    print(mag1)
+    time.sleep(0.05)
