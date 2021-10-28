@@ -10,28 +10,32 @@ threshhold = 1.5
 step = 0
 
 while True:
+    # mag1
     x, y, z = cp.acceleration
     mag1 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
     mag1_time = time.monotonic()
     time.sleep(wait_time)
-
+    
+    # mag2 for slope1, mag1 for slope2
     x, y, z = cp.acceleration
     mag2 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
     mag2_time = time.monotonic()
     time.sleep(wait_time)
 
     slope1 = (mag2_time - mag1_time)/(mag2 - mag1)
-
+    
+    # mag2 for slope2
+    # I reused the mag1 variables because now that slope1 is calculated they weren't 
+    # needed
     x, y, z = cp.acceleration
     mag1 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
     mag1_time = time.monotonic()
     time.sleep(wait_time)
-
+    
     slope2 = (mag1_time - mag2_time)/(mag1 - mag2)
     
     if slope1 > 0 and slope2 > 0 and step_add < 1 and mag1 > threshhold:
-        step_add = 1
-        step = step + 1
+        step_add = 1  # it checks if it has already counted the spike as a step
+        step = step + 1  # number of steps
     else:
-        step = 0
-    print(step_add)
+        step_add = 0
