@@ -4,9 +4,34 @@ import time
 
 cp.pixels.brightness = .2
 grav = 9.8
+wait_time = 0.03
+step_add = 0
+threshhold = 1.5
+step = 0
 
 while True:
     x, y, z = cp.acceleration
-    mag1 = math.sqrt((x/grav) ^ 2 + (y/grav) ^ 2 + (z/grav) ^ 2) 
-    print(mag1)
-    time.sleep(0.05)
+    mag1 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
+    mag1_time = time.monotonic()
+    time.sleep(wait_time)
+
+    x, y, z = cp.acceleration
+    mag2 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
+    mag2_time = time.monotonic()
+    time.sleep(wait_time)
+
+    slope1 = (mag2_time - mag1_time)/(mag2 - mag1)
+
+    x, y, z = cp.acceleration
+    mag1 = math.sqrt((x/grav)**2 + (y/grav)**2 + (z/grav)**2)
+    mag1_time = time.monotonic()
+    time.sleep(wait_time)
+
+    slope2 = (mag1_time - mag2_time)/(mag1 - mag2)
+    
+    if slope1 > 0 and slope2 > 0 and step_add < 1 and mag1 > threshhold:
+        step_add = 1
+        step = step + 1
+    else:
+        step = 0
+    print(step_add)
