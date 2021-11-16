@@ -1,0 +1,46 @@
+from adafruit_circuitplayground import cp
+import time
+
+C = 264
+D = 293.665
+E = 329.628
+F = 349.23
+G = 391.995
+A = 440
+B = 493.883
+
+while True:
+    if cp.button_b:
+        C = C * 2
+        D = D * 2
+        E = E * 2
+        F = F * 2
+        G = G * 2
+        A = A * 2
+        B = B * 2
+        time.sleep(0.5)
+    if cp.button_a:
+        C = C / 2
+        D = D / 2
+        E = E / 2
+        F = F / 2
+        G = G / 2
+        A = A / 2
+        B = B / 2
+        time.sleep(0.5)
+    
+    
+    if cp.touch_A1:
+        cp.play_tone(C, 0.2)
+    if cp.touch_A2:
+        cp.play_tone(D, 0.2)
+    if cp.touch_A3:
+        cp.play_tone(E, 0.2)
+    if cp.touch_A4:
+        cp.play_tone(F, 0.2)
+    if cp.touch_A5:
+        cp.play_tone(G, 0.2)
+    if cp.touch_A6:
+        cp.play_tone(A, 0.2)
+    if cp.touch_A7:
+        cp.play_tone(B, 0.2)
