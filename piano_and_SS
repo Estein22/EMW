@@ -24,7 +24,6 @@ while True:
             game[i] = num
         v = 0
         while v < 10:
-            
             print(v)
             if v < 10:
                 for k in range(0, u, 1):
